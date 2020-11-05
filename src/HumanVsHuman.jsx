@@ -1,9 +1,11 @@
+/* eslint-disable no-use-before-define */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Chess from 'chess.js'; // import Chess from  "chess.js"(default) if recieving an error about new Chess() not being a constructor
+import { findOrientation } from './puzzleFunctions';
 
 class HumanVsHuman extends Component {
-  static propTypes = { children: PropTypes.func };
+  // static propTypes = { children: PropTypes.func };
 
   state = {
     fen: 'start',
@@ -16,22 +18,21 @@ class HumanVsHuman extends Component {
   };
 
   componentDidMount() {
-    const { fen } = this.props;
+    const { fen, solution } = this.props;
     const newFen = fen;
-    const findOrientation = (fen) => {
-      if (fen.split(' ')[1] === 'b') {
-        return 'black';
-      }
-      return 'white';
-    };
-    
+
     const orientation = findOrientation(newFen);
-    console.log(orientation);
     this.setState({
       fen,
       orientation,
+      solution,
     });
     this.game = new Chess(fen);
+  }
+
+  componentDidUpdate() {
+    const { solution } = this.state;
+    console.log(solution);
   }
 
   // keep clicked square style and remove hint squares
@@ -68,7 +69,7 @@ class HumanVsHuman extends Component {
   };
 
   onDrop = ({ sourceSquare, targetSquare }) => {
-    console.log('clicked!');
+    // console.log('clicked!');
     const move = this.game.move({
       from: sourceSquare,
       to: targetSquare,
@@ -76,6 +77,7 @@ class HumanVsHuman extends Component {
     });
 
     if (move === null) return;
+    // console.log(move);
     this.setState(({ history, pieceSquare }) => ({
       fen: this.game.fen(),
       history: this.game.history({ verbose: true }),
@@ -114,29 +116,33 @@ class HumanVsHuman extends Component {
   };
 
   onSquareClick = (square) => {
-    const { history, pieceSquare } = this.state;
-
+    console.log('square', square);
+    const { pieceSquare, solution } = this.state;
     this.setState(({ history }) => ({
       squareStyles: squareStyling({ pieceSquare: square, history }),
       pieceSquare: square,
     }));
-    console.log(this.state);
+
     const move = this.game.move({
       from: pieceSquare,
       to: square,
       promotion: 'q', // always promote to a queen for example simplicity
     });
-    console.log(move, 'move');
-    console.log(this.game, 'game');
-    // illegal move
+    // check if move is valid
     if (move === null) return;
-
-    this.setState({
-      fen: this.game.fen(),
-      history: this.game.history({ verbose: true }),
-      pieceSquare: '',
-    });
-    console.log(history);
+    if (solution[0] === move.san) {
+      if (solution.length === 1) {
+        console.log('success!');
+      }
+      this.setState((state, props) => ({
+        fen: this.game.fen(),
+        history: this.game.history({ verbose: true }),
+        pieceSquare: '',
+        solution: solution.slice(1),
+      }));
+    } else {
+      console.log('Incorrect Move');
+    }
   };
 
   onSquareRightClick = (square) => this.setState({
@@ -144,7 +150,9 @@ class HumanVsHuman extends Component {
   });
 
   render() {
-    const { fen, dropSquareStyle, squareStyles, orientation } = this.state;
+    const {
+      fen, dropSquareStyle, squareStyles, orientation,
+    } = this.state;
     const { children } = this.props;
 
     return children({
