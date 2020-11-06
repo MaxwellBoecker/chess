@@ -23,7 +23,7 @@ function Puzzles() {
         }) => (
           <Chessboard
             id="humanVsHuman"
-            width={320}
+            width={400}
             position={position}
             onDrop={onDrop}
             onMouseOverSquare={onMouseOverSquare}
