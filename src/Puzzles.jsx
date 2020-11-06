@@ -1,6 +1,6 @@
 import React from 'react';
 import Chessboard from 'chessboardjsx';
-import HumanVsHuman from './PuzzleLogic.jsx';
+import PuzzleLogic from './PuzzleLogic.jsx';
 
 function Puzzles() {
   const fen = '3qr3/p1R3pk/3P1b1p/3QBp2/5P2/1P1bp1P1/P5B1/6K1 b - - 0 40';
@@ -8,7 +8,7 @@ function Puzzles() {
   // const fen = 'r1k4r/p2nb1p1/2b4p/1p1n1p2/2PP4/3Q1NB1/1P3PPP/R5K1 b - c3 0 19';
   return (
     <div>
-      <HumanVsHuman fen={fen} solution={solution}>
+      <PuzzleLogic fen={fen} solution={solution}>
         {({
           orientation,
           position,
@@ -22,7 +22,7 @@ function Puzzles() {
           onSquareRightClick,
         }) => (
           <Chessboard
-            id="humanVsHuman"
+            id="PuzzleLogic"
             width={400}
             position={position}
             onDrop={onDrop}
@@ -40,7 +40,7 @@ function Puzzles() {
             orientation={orientation}
           />
         )}
-      </HumanVsHuman>
+      </PuzzleLogic>
     </div>
   );
 }
