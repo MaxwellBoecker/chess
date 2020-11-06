@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-use-before-define */
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Chess from 'chess.js'; // import Chess from  "chess.js"(default) if recieving an error about new Chess() not being a constructor
 import { findOrientation, splitSolution } from './puzzleFunctions';
 
-class HumanVsHuman extends Component {
+class PuzzleLogic extends Component {
   // static propTypes = { children: PropTypes.func };
 
   state = {
@@ -199,4 +199,10 @@ const squareStyling = ({ pieceSquare, history }) => {
   };
 };
 
-export default HumanVsHuman;
+PuzzleLogic.propTypes = {
+  fen: PropTypes.string.isRequired,
+  solution: PropTypes.array.isRequired,
+  children: PropTypes.func.isRequired,
+};
+
+export default PuzzleLogic;
