@@ -1,6 +1,6 @@
 import React from 'react';
 import Chessboard from 'chessboardjsx';
-import HumanVsHuman from './HumanVsHuman.jsx';
+import HumanVsHuman from './PuzzleLogic.jsx';
 
 function Puzzles() {
   const fen = '3qr3/p1R3pk/3P1b1p/3QBp2/5P2/1P1bp1P1/P5B1/6K1 b - - 0 40';
