@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-use-before-define */
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
@@ -28,11 +29,6 @@ class HumanVsHuman extends Component {
       solution,
     });
     this.game = new Chess(fen);
-  }
-
-  componentDidUpdate() {
-    const { solution } = this.state;
-    console.log(solution);
   }
 
   // keep clicked square style and remove hint squares
@@ -116,7 +112,7 @@ class HumanVsHuman extends Component {
   };
 
   onSquareClick = (square) => {
-    console.log('square', square);
+    // console.log('square', square);
     const { pieceSquare, solution } = this.state;
     this.setState(({ history }) => ({
       squareStyles: squareStyling({ pieceSquare: square, history }),
@@ -129,19 +125,47 @@ class HumanVsHuman extends Component {
       promotion: 'q', // always promote to a queen for example simplicity
     });
     // check if move is valid
-    if (move === null) return;
-    if (solution[0] === move.san) {
+    if (move === null) {
+      console.log('null move');
+    } else if (solution[0] === move.san) {
       if (solution.length === 1) {
         console.log('success!');
       }
-      this.setState((state, props) => ({
+      this.setState({
         fen: this.game.fen(),
         history: this.game.history({ verbose: true }),
         pieceSquare: '',
         solution: solution.slice(1),
-      }));
+      }, () => {
+        const { solution } = this.state;
+        if (solution[0] && solution[0].length > 4) {
+          const first = solution[0].slice(1, 3);
+          const second = solution[0].slice(4, 6);
+          let solutionMove;
+          const piece = solution[0][0];
+          if (solution[0][solution[0].length - 1] === '+') {
+            solutionMove = `${second}+`;
+          } else {
+            solutionMove = `${second}`;
+          }
+          let newSolution;
+          solution[0].includes('x')
+            ? newSolution = [`${piece}x${solutionMove}`, ...solution.slice(1)]
+            : newSolution = [`${piece}${solutionMove}`, ...solution.slice(1)];
+
+          // console.log(first, second);
+          this.setState({
+            solution: newSolution,
+          }, () => {
+            this.onSquareClick(first);
+            this.setState({}, () => {
+              this.onSquareClick(second);
+            });
+          });
+        }
+      });
     } else {
-      console.log('Incorrect Move');
+      console.log('Incorrect Move', `correct was ${move.san}`);
     }
   };
 
