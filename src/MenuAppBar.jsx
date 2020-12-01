@@ -1,12 +1,25 @@
 import React from 'react';
-import { AppBar, Toolbar } from '@material-ui/core';
+import { AppBar, Button, Toolbar } from '@material-ui/core';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
 
 function MenuAppBar() {
   return (
     <div>
-      <AppBar>
-        <Toolbar></Toolbar>
-      </AppBar>
+      <Router>
+
+        <AppBar>
+          <Toolbar style={{ backgroundColor: '#373737' }}>
+            <Button style={{ color: 'goldenrod' }}>
+              Puzzles
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </Router>
     </div>
   );
 }
