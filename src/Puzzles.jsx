@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Chessboard from 'chessboardjsx';
 import PuzzleLogic from './PuzzleLogic.jsx';
 
@@ -7,7 +7,6 @@ function Puzzles() {
   const solution = ['Bxe5', 'Qd5xd3', 'e2', 'Rc7tc1', 'Bxd6', 'Qd3xf5+', 'Kh8'];
   // const fen = 'r1k4r/p2nb1p1/2b4p/1p1n1p2/2PP4/3Q1NB1/1P3PPP/R5K1 b - c3 0 19';
   return (
-    <div>
       <PuzzleLogic fen={fen} solution={solution}>
         {({
           orientation,
@@ -41,7 +40,6 @@ function Puzzles() {
           />
         )}
       </PuzzleLogic>
-    </div>
   );
 }
 
