@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import {
   Container, Grid, Paper, AppBar,
@@ -10,11 +11,13 @@ const MovesBox = (props) => {
     <Container style={{ backgroundColor: '#373737', color: 'white' }}>
       <Paper style={{ backgroundColor: '#373737', color: 'white' }}>
         {moves.map((m, i) => (
-          <>
-            <span>{i}</span>.{' '}
-            <Move move={m} key={i} />
+          <span key={i}>
+            <span key={i}>{i}</span>
+            .
             {' '}
-          </>
+            <Move move={m} key={m} />
+            {' '}
+          </span>
         ))}
       </Paper>
     </Container>
