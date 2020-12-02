@@ -7,8 +7,12 @@ import MovesBox from './MovesBox.jsx';
 function CreateBoard() {
   const fen = '3qr3/p1R3pk/3P1b1p/3QBp2/5P2/1P1bp1P1/P5B1/6K1 b - - 0 40';
   const solution = ['Bxe5', 'Qd5xd3', 'e2', 'Rc7tc1', 'Bxd6', 'Qd3xf5+', 'Kh8'];
+  const updateFenOnClick = () => {
+
+  }
   // const fen = 'r1k4r/p2nb1p1/2b4p/1p1n1p2/2PP4/3Q1NB1/1P3PPP/R5K1 b - c3 0 19';
-  const [moves, setMoves] = useState(['Qd5', 'Qd5']);
+  // set initial `ghost move` from computer
+  const [moves, setMoves] = useState(['Qd5']);
   return (
     <Container className="chessboard" style={{ paddingTop: '80px' }}>
       <Grid container justify="center" spacing={8}>
@@ -16,7 +20,7 @@ function CreateBoard() {
           
         </Grid>
         <Grid item md>
-          <PuzzleLogic fen={fen} solution={solution}>
+          <PuzzleLogic fen={fen} solution={solution} setMoves={setMoves} moves={moves}>
             {({
               orientation,
               position,
@@ -52,7 +56,7 @@ function CreateBoard() {
 
         </Grid>
         <Grid item md>
-          <MovesBox moves={['Qd5', 'Be5']}></MovesBox>
+          <MovesBox moves={moves}></MovesBox>
         </Grid>
       </Grid>
 
