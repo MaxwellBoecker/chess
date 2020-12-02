@@ -6,8 +6,9 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import CreateBoard from './CreateBoard.jsx';
 import Profile from './Profile.jsx';
+import Home from './Home.jsx';
+import PuzzleFeature from './PuzzleFeature.jsx';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
             style={{ textDecoration: 'none' }}
           >
             <Button style={{ color: 'goldenrod' }}>
-              Train
+              Tactics
             </Button>
           </Link>
         </Toolbar>
@@ -40,7 +41,10 @@ function App() {
           <Profile />
         </Route>
         <Route path="/puzzles">
-          <CreateBoard />
+          <PuzzleFeature />
+        </Route>
+        <Route path="/">
+          <Home />
         </Route>
       </Switch>
     </Router>
