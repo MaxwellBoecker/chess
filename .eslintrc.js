@@ -26,6 +26,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'react/state-in-constructor': 'off',
     'react/forbid-prop-types': 'off',
+    'no-shadow': 'off',
+    'no-lonely-if': 'off'
   },
   parser: 'babel-eslint',
 };
