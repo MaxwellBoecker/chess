@@ -1,9 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import {
-  Container, Grid, Paper, AppBar,
+  Container,
 } from '@material-ui/core';
 import Move from './Move.jsx';
+import MoveControlPanel from './MoveControlPanel.jsx';
 
 const MoveDisplayBox = (props) => {
   const { moves, orientation } = props;
@@ -27,15 +28,10 @@ const MoveDisplayBox = (props) => {
     return prefix;
   };
   return (
-    <Container style={{ backgroundColor: '#373737', color: 'white' }}>
-      <Paper style={{ backgroundColor: '#373737', color: 'white' }}>
+    <>
+      <Container style={{ backgroundColor: '#373737', color: 'white', paddingBottom: '128px' }}>
         {moves.map((m, i) => {
           const prefix = determinePrefix(i, orientation);
-          // if (i === 0) {
-          //   prefix = '1.';
-          // } else if(i % 2 === 0){
-          //   prefix = `${i / 2 + 1}.`;
-          // }
           return (
             <span key={i}>
               <span key={i}>{prefix}</span>
@@ -45,8 +41,9 @@ const MoveDisplayBox = (props) => {
             </span>
           );
         })}
-      </Paper>
-    </Container>
+      </Container>
+      <MoveControlPanel />
+    </>
   );
 };
 
