@@ -5,7 +5,9 @@ import {
 
 const MoveControlPanel = () => {
   return(
-    <BottomNavigation style={{ backgroundColor: '#252525'}}></BottomNavigation>
+    <BottomNavigation style={{ backgroundColor: '#252525'}}>
+      
+    </BottomNavigation>
   );
 };
 

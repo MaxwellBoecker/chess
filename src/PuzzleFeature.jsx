@@ -3,6 +3,7 @@ import Chessboard from 'chessboardjsx';
 import { Container, Grid } from '@material-ui/core';
 import PuzzleLogic from './PuzzleLogic.jsx';
 import MoveDisplayBox from './MoveDisplayBox.jsx';
+// import Stopwatch from './Stopwatch.jsx';
 import { findOrientation } from './puzzleFunctions';
 
 function PuzzleFeature() {
@@ -22,7 +23,7 @@ function PuzzleFeature() {
     <Container className="chessboard" style={{ paddingTop: '80px' }}>
       <Grid container justify="center" spacing={8}>
         <Grid item md>
-          
+          {/* <Stopwatch></Stopwatch> */}
         </Grid>
         <Grid item md>
           <PuzzleLogic fen={fen} solution={solution} setMoves={setMoves} moves={moves}>
