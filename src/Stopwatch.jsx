@@ -1,5 +1,28 @@
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
+import {
+  BottomNavigation,
+  Button,
+} from '@material-ui/core';
 
+const Stopwatch = () => {
+  const [timerOn, setTimerOn] = useState(false);
+  const [timerTime, setTimerTime] = useState(0);
+  const [timerStart, setTimerStart] = useState(0);
+  const onClick = (e) => {
+    setTimerOn(!timerOn);
+    console.log(timerOn);
+  };
+  return (
+    <div style={{ backgroundColor: 'goldenrod', color: 'white' }}>
+        <Button onClick={onClick} style={{ color: 'black' }}>
+          start/stop
+        </Button>
+    </div>
+  );
+};
+
+
+export default Stopwatch;
 // const Stopwatch = () => {
 //   const [timerOn, setTimerOn] = useState(false);
 //   const [timerTime, setTimerTime] = useState(0);
