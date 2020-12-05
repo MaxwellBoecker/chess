@@ -5,9 +5,11 @@ import {
 } from '@material-ui/core';
 import Move from './Move.jsx';
 import MoveControlPanel from './MoveControlPanel.jsx';
+import SuccessFailBar from './SuccessFailBar.jsx';
 
 const MoveDisplayBox = (props) => {
-  const { moves, orientation } = props;
+  const { moves, orientation, success, color } = props;
+
   const determinePrefix = (index, orientation) => {
     let prefix = '';
     const evaluatedMove = index % 2;
@@ -28,8 +30,9 @@ const MoveDisplayBox = (props) => {
     return prefix;
   };
   return (
-    <>
-      <Container style={{ backgroundColor: '#373737', color: 'white', paddingBottom: '128px' }}>
+    <div>
+      {success !== null ? <SuccessFailBar color={color} /> : ''}
+      <Container style={{ backgroundColor: '#373737', color: 'white', paddingBottom: '128px', paddingTop: '12px' }}>
         {moves.map((m, i) => {
           const prefix = determinePrefix(i, orientation);
           return (
@@ -43,7 +46,7 @@ const MoveDisplayBox = (props) => {
         })}
       </Container>
       <MoveControlPanel />
-    </>
+    </div>
   );
 };
 
