@@ -11,8 +11,11 @@ function PuzzleFeature() {
   const solution = ['Bxe5', 'Qd5xd3', 'e2', 'Rc7tc1', 'Bxd6', 'Qd3xf5+', 'Kh8'];
   const [moves, setMoves] = useState(['Qd5']);
   const [orientation, setOrientation] = useState('white');
+  const [success, setSuccess] = useState(null);
+  const [color, setColor] = useState(null);
   useEffect(() => {
     setOrientation(findOrientation(fen));
+
   });
   const updateFenOnClick = () => {
 
@@ -26,7 +29,15 @@ function PuzzleFeature() {
           {/* <Stopwatch></Stopwatch> */}
         </Grid>
         <Grid item md>
-          <PuzzleLogic fen={fen} solution={solution} setMoves={setMoves} moves={moves}>
+          <PuzzleLogic
+            fen={fen}
+            solution={solution}
+            setMoves={setMoves}
+            moves={moves}
+            success={success}
+            setSuccess={setSuccess}
+            setColor={setColor}
+          >
             {({
               orientation,
               position,
@@ -62,7 +73,7 @@ function PuzzleFeature() {
 
         </Grid>
         <Grid item md>
-          <MoveDisplayBox moves={moves} orientation={orientation}></MoveDisplayBox>
+          <MoveDisplayBox moves={moves} orientation={orientation} success={success} color={color}/>
         </Grid>
       </Grid>
 
