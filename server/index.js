@@ -1,10 +1,11 @@
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
-
+const { connectToDB } = require('../database')
 const app = express();
 dotenv.config();
 
+connectToDB();
 const { port } = process.env;
 app.use('/', express.static(path.join(__dirname, "../build")));
 
