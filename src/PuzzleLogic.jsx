@@ -115,7 +115,7 @@ class PuzzleLogic extends Component {
     // console.log('square', square);
     const { pieceSquare, solution } = this.state;
     const {
-      setMoves, moves, setSuccess, setColor, success
+      setMoves, moves, setSuccess, setColor, success, setStopClock
     } = this.props;
     this.setState(({ history }) => ({
       squareStyles: squareStyling({ pieceSquare: square, history }),
@@ -129,13 +129,14 @@ class PuzzleLogic extends Component {
     });
     // check if move is valid
     if (move === null) {
-      console.log('null move');
+
     } else if (solution[0] === move.san) {
       setMoves([...moves, move.san]);
       if (solution.length === 1) {
         console.log('success!');
         setSuccess(true);
         setColor('green');
+        setStopClock(true);
       }
       this.setState({
         fen: this.game.fen(),
@@ -161,6 +162,7 @@ class PuzzleLogic extends Component {
       if (success === null) {
         setSuccess(false);
         setColor('red');
+        setStopClock(true);
       }
     }
   };

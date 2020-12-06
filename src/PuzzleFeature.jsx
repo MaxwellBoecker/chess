@@ -13,6 +13,7 @@ function PuzzleFeature() {
   const [orientation, setOrientation] = useState('white');
   const [success, setSuccess] = useState(null);
   const [color, setColor] = useState(null);
+  const [stopClock, setStopClock] = useState(false);
   useEffect(() => {
     setOrientation(findOrientation(fen));
 
@@ -26,7 +27,7 @@ function PuzzleFeature() {
     <Container className="chessboard" style={{ paddingTop: '80px' }}>
       <Grid container justify="center" spacing={8}>
         <Grid item md>
-          <Stopwatch></Stopwatch>
+          <Stopwatch stopClock={stopClock}></Stopwatch>
         </Grid>
         <Grid item md>
           <PuzzleLogic
@@ -37,6 +38,7 @@ function PuzzleFeature() {
             success={success}
             setSuccess={setSuccess}
             setColor={setColor}
+            setStopClock={setStopClock}
           >
             {({
               orientation,
