@@ -25,7 +25,6 @@ const Stopwatch = (props) => {
     }
   };
   if (stopClock === false && count === 0) {
-    console.log('in here');
     timerStart = Date.now();
     onClick();
     setCount(1);

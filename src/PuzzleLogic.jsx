@@ -133,7 +133,6 @@ class PuzzleLogic extends Component {
     } else if (solution[0] === move.san) {
       setMoves([...moves, move.san]);
       if (solution.length === 1) {
-        console.log('success!');
         setSuccess(true);
         setColor('green');
         setStopClock(true);

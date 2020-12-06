@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Chessboard from 'chessboardjsx';
-import { Container, Grid } from '@material-ui/core';
+import { Button, Container, Grid } from '@material-ui/core';
 import PuzzleLogic from './PuzzleLogic.jsx';
 import MoveDisplayBox from './MoveDisplayBox.jsx';
 import Stopwatch from './Stopwatch.jsx';
@@ -16,8 +16,13 @@ function PuzzleFeature() {
   const [stopClock, setStopClock] = useState(false);
   useEffect(() => {
     setOrientation(findOrientation(fen));
-
   });
+  const onClickPrev = () => {
+    console.log('send to previous puzzle');
+  };
+  const onClickNext = () => {
+    console.log('send to next puzzle');
+  }
   const updateFenOnClick = () => {
 
   };
@@ -27,7 +32,7 @@ function PuzzleFeature() {
     <Container className="chessboard" style={{ paddingTop: '80px' }}>
       <Grid container justify="center" spacing={8}>
         <Grid item md>
-          <Stopwatch stopClock={stopClock}></Stopwatch>
+          <Stopwatch stopClock={stopClock} />
         </Grid>
         <Grid item md>
           <PuzzleLogic
@@ -72,10 +77,22 @@ function PuzzleFeature() {
               />
             )}
           </PuzzleLogic>
+          <Container style={{ paddingTop: '12px' }}>
+            <Grid container spacing={8}>
+              <Grid item md>
+                <Button variant="contained" onClick={onClickPrev}>Previous</Button>
 
+              </Grid>
+              <Grid item md>
+                <Button variant="contained" onClick={onClickNext}>Next</Button>
+
+              </Grid>
+            </Grid>
+
+          </Container>
         </Grid>
         <Grid item md>
-          <MoveDisplayBox moves={moves} orientation={orientation} success={success} color={color}/>
+          <MoveDisplayBox moves={moves} orientation={orientation} success={success} color={color} />
         </Grid>
       </Grid>
 
