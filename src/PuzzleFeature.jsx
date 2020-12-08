@@ -22,7 +22,7 @@ function PuzzleFeature() {
   };
   const onClickNext = () => {
     console.log('send to next puzzle');
-  }
+  };
   const updateFenOnClick = () => {
 
   };
