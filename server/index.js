@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const { client } = require('../database');
-const { createPuzzle } = require('../database/dbFunctions');
+const { connectAndRetrievePuzzle, connectAndInsertPuzzle } = require('../database/dbFunctions');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -10,25 +10,24 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 dotenv.config();
 
-const { port } = process.env;
+const { port, DATABASE } = process.env;
 app.use('/', express.static(path.join(__dirname, '../build')));
 
-app.use('*', express.static(path.join(__dirname, '../build/index.html')));
+app.get('/puzzle', (req, res) => {
+  const options = { sequence: { $eq: 1 } };
+  connectAndRetrievePuzzle(client, options)
+    .then((data) => {
+      console.log(data);
+      res.status(200).send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).end();
+    });
+});
 
 app.post('/puzzle', jsonParser, (req, res) => {
   const puzzleInfo = req.body;
-  async function connectAndInsertPuzzle(client, puzzleInfo) {
-    try {
-      await client.connect();
-      console.log('database connected');
-      await createPuzzle(client, puzzleInfo);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      await client.close();
-      console.log('closed');
-    }
-  }
   connectAndInsertPuzzle(client, puzzleInfo)
     .then(() => {
       res.status(200).end();
@@ -38,6 +37,7 @@ app.post('/puzzle', jsonParser, (req, res) => {
     });
 });
 
+app.use('*', express.static(path.join(__dirname, '../build/index.html')));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
