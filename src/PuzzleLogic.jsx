@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Chess from 'chess.js'; // import Chess from  "chess.js"(default) if recieving an error about new Chess() not being a constructor
-import { findOrientation, splitSolution } from './puzzleFunctions';
+import { findOrientation, splitSolution } from './puzzleFunctions.js';
 
 class PuzzleLogic extends Component {
   // static propTypes = { children: PropTypes.func };
