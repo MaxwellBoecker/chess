@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Button, Toolbar } from '@material-ui/core';
 import {
   BrowserRouter as Router,
@@ -6,11 +6,20 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import axios from 'axios';
 import Profile from './Profile.jsx';
 import Home from './Home.jsx';
 import PuzzleFeature from './PuzzleFeature.jsx';
 
 function App() {
+  const [fen, setFen] = useState('');
+  const [solution, setSolution] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+  useEffect(async () => {
+    const data = await axios.get('/puzzle');
+    setFen(data.data.fen);
+    setSolution(data.data.solution);
+  }, []);
   return (
     // <div>
     //   <CreateBoard></CreateBoard>
@@ -41,7 +50,7 @@ function App() {
           <Profile />
         </Route>
         <Route path="/puzzles">
-          <PuzzleFeature />
+          <PuzzleFeature key={fen} fen={fen} solution={solution} />
         </Route>
         <Route path="/">
           <Home />
