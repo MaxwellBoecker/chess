@@ -27,7 +27,8 @@ module.exports = {
     'react/state-in-constructor': 'off',
     'react/forbid-prop-types': 'off',
     'no-shadow': 'off',
-    'no-lonely-if': 'off'
+    'no-lonely-if': 'off',
+    'plus-plus': 'off',
   },
   parser: 'babel-eslint',
 };
