@@ -1,15 +1,14 @@
 require('dotenv').config();
-const webpack = require('webpack');
 
 module.exports = {
   entry: './src/Index.jsx',
   output: {
     filename: 'app.js',
     path: __dirname + '/build',
-    publicPath: '/'
+    publicPath: '/',
   },
   devServer: {
-    contentBase: './build'
+    contentBase: './build',
   },
   devtool: 'eval-source-map',
   mode: 'development',
@@ -21,9 +20,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.(pdf|png|jpe?g|gif)$/i,
@@ -33,6 +32,6 @@ module.exports = {
           },
         ],
       },
-    ]
-  }
-}
+    ],
+  },
+};
