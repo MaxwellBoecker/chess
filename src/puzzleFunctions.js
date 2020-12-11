@@ -23,7 +23,7 @@ const splitSolution = (solution) => {
   return { first, second, newSolution };
 };
 
-module.exports = {
+export {
   findOrientation,
   splitSolution,
 };
