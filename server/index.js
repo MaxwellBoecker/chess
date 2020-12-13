@@ -14,7 +14,7 @@ const { port, DATABASE } = process.env;
 app.use('/', express.static(path.join(__dirname, '../build')));
 
 app.get('/puzzle', (req, res) => {
-  const options = { sequence: { $eq: 1 } };
+  const options = { sequence: { $eq: 2 } };
   connectAndRetrievePuzzle(client, options)
     .then((data) => {
       console.log(data);

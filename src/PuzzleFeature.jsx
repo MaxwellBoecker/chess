@@ -16,7 +16,7 @@ function PuzzleFeature(props) {
   const [solution, setSolution] = useState(props.solution);
   // let fen = props.fen
   // let solution = props.solution
-  const [moves, setMoves] = useState(['Qd5']);
+  const [moves, setMoves] = useState([props.preMove]);
   const [orientation, setOrientation] = useState('white');
   const [success, setSuccess] = useState(null);
   const [color, setColor] = useState(null);
@@ -24,12 +24,10 @@ function PuzzleFeature(props) {
 
   useEffect(() => {
     setOrientation(findOrientation(fen));
-    console.log('changed', props)
     setFen(props.fen);
     setSolution(props.solution);
+    console.log(props.preMove)
   }, []);
-
-  
 
   const onClickPrev = () => {
     console.log('send to previous puzzle');
@@ -50,6 +48,7 @@ function PuzzleFeature(props) {
         </Grid>
         <Grid item md>
           <PuzzleLogic
+            key={fen}
             fen={fen}
             solution={solution}
             setMoves={setMoves}
@@ -72,6 +71,7 @@ function PuzzleFeature(props) {
               onSquareRightClick,
             }) => (
               <Chessboard
+                key={fen}
                 id="PuzzleLogic"
                 width={600}
                 position={position}

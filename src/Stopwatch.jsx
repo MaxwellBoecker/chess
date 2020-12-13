@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
 } from '@material-ui/core';
@@ -15,6 +15,17 @@ const Stopwatch = (props) => {
     setTimerTime(Date.now() - timerStart);
   }, 1000);
 
+  useEffect(() => {
+    if (stopClock === false && count === 0) {
+      timerStart = Date.now();
+      onClick();
+      setCount(1);
+    } else if (stopClock === true && count === 1) {
+      onClick();
+      setCount(2);
+    }
+  })
+
   const onClick = () => {
     if (timerOn === false) {
       setTimer(timerSetup());
@@ -24,14 +35,7 @@ const Stopwatch = (props) => {
       setTimerOn(false);
     }
   };
-  if (stopClock === false && count === 0) {
-    timerStart = Date.now();
-    onClick();
-    setCount(1);
-  } else if (stopClock === true && count === 1) {
-    onClick();
-    setCount(2);
-  }
+  
 
   const seconds = (`0${Math.floor(timerTime / 1000) % 60}`).slice(-2);
   const minutes = (`0${Math.floor(timerTime / 60000) % 60}`).slice(-2);

@@ -14,11 +14,15 @@ import PuzzleFeature from './PuzzleFeature.jsx';
 function App() {
   const [fen, setFen] = useState('');
   const [solution, setSolution] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  const [preMove, setPreMove] = useState('');
+  const [puzzleQueue, setPuzzleQueue] = useState([]);
+  // const [refresh, setRefresh] = useState(false);
   useEffect(async () => {
     const data = await axios.get('/puzzle');
     setFen(data.data.fen);
     setSolution(data.data.solution);
+    setPreMove(data.data.pre_move);
+    setPuzzleQueue([...puzzleQueue, data.data.sequence]);
   }, []);
   return (
     // <div>
@@ -50,7 +54,7 @@ function App() {
           <Profile />
         </Route>
         <Route path="/puzzles">
-          <PuzzleFeature key={fen} fen={fen} solution={solution} />
+          <PuzzleFeature key={solution} fen={fen} solution={solution} preMove={preMove} />
         </Route>
         <Route path="/">
           <Home />
