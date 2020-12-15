@@ -12,12 +12,16 @@ dotenv.config();
 
 const { port, DATABASE } = process.env;
 app.use('/', express.static(path.join(__dirname, '../build')));
+app.use(jsonParser);
 
 app.get('/puzzle', (req, res) => {
-  const options = { sequence: { $eq: 2 } };
+  let { sequence } = req.query;
+  console.log(sequence)
+  sequence = parseFloat(sequence);
+  const options = { sequence: { $eq: sequence } };
   connectAndRetrievePuzzle(client, options)
     .then((data) => {
-      console.log(data);
+      console.log(data, 'data server');
       res.status(200).send(data);
     })
     .catch(err => {

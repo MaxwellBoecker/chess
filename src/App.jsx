@@ -15,19 +15,24 @@ function App() {
   const [fen, setFen] = useState('');
   const [solution, setSolution] = useState([]);
   const [preMove, setPreMove] = useState('');
-  const [puzzleQueue, setPuzzleQueue] = useState([]);
+  const [sequence, setSequence] = useState(1);
   // const [refresh, setRefresh] = useState(false);
+  const updateSequence = (next) => {
+    setSequence(next);
+  }
   useEffect(async () => {
-    const data = await axios.get('/puzzle');
+    const data = await axios.get('/puzzle', { params: { sequence } });
+    console.log(data);
     setFen(data.data.fen);
     setSolution(data.data.solution);
     setPreMove(data.data.pre_move);
-    setPuzzleQueue([...puzzleQueue, data.data.sequence]);
-  }, []);
+  }, [sequence]);
   return (
     // <div>
     //   <CreateBoard></CreateBoard>
     // </div>
+    <div key={sequence}>
+
     <Router>
       <AppBar>
         <Toolbar style={{ backgroundColor: '#373737' }}>
@@ -54,13 +59,14 @@ function App() {
           <Profile />
         </Route>
         <Route path="/puzzles">
-          <PuzzleFeature key={solution} fen={fen} solution={solution} preMove={preMove} />
+          <PuzzleFeature key={solution} fen={fen} solution={solution} preMove={preMove} sequence={sequence} updateSequence={updateSequence} />
         </Route>
         <Route path="/">
           <Home />
         </Route>
       </Switch>
     </Router>
+    </div>
   );
 }
 

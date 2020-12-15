@@ -12,6 +12,7 @@ function PuzzleFeature(props) {
   // const solution = ['Bxe5', 'Qd5xd3', 'e2', 'Rc7tc1', 'Bxd6', 'Qd3xf5+', 'Kh8'];
   // let fen = 'rn1qk2r/ppp2ppp/5n2/2b5/2B1P1b1/3P1N2/PPP3PP/RNBQK2R w - - 0 1';
   // let solution = ['Bxf7+', 'Ke8xf7', 'Ne5+', 'Kf7tg8', 'Nxg4'];
+  const { sequence, updateSequence } = props;
   const [fen, setFen] = useState(props.fen);
   const [solution, setSolution] = useState(props.solution);
   // let fen = props.fen
@@ -26,14 +27,19 @@ function PuzzleFeature(props) {
     setOrientation(findOrientation(fen));
     setFen(props.fen);
     setSolution(props.solution);
-    console.log(props.preMove)
+    console.log(props.preMove, 'premove')
   }, []);
 
   const onClickPrev = () => {
     console.log('send to previous puzzle');
+    let next = sequence - 1;
+    console.log(next);
+    updateSequence(next);
   };
   const onClickNext = () => {
-    console.log('send to next puzzle');
+    console.log('send to next puzzles', sequence);
+
+    updateSequence(sequence + 1);
   };
   const updateFenOnClick = () => {
 
