@@ -15,6 +15,8 @@ async function connectAndRetrievePuzzle(client, options) {
     result = await client.db(DATABASE).collection('puzzles').findOne(options);
   } catch (e) {
     console.log(e);
+  } finally {
+    client.close();
   }
   return result;
 }
@@ -26,6 +28,8 @@ async function connectAndInsertPuzzle(client, puzzleInfo) {
     await createPuzzle(client, puzzleInfo);
   } catch (e) {
     console.error(e);
+  } finally {
+    client.close();
   }
 }
 
