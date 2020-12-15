@@ -14,18 +14,18 @@ import PuzzleFeature from './PuzzleFeature.jsx';
 function App() {
   const [fen, setFen] = useState('');
   const [solution, setSolution] = useState([]);
-  const [preMove, setPreMove] = useState('');
+  // const [preMove, setPreMove] = useState('');
   const [sequence, setSequence] = useState(1);
   // const [refresh, setRefresh] = useState(false);
   const updateSequence = (next) => {
     setSequence(next);
-  }
+  };
   useEffect(async () => {
     const data = await axios.get('/puzzle', { params: { sequence } });
     console.log(data);
     setFen(data.data.fen);
     setSolution(data.data.solution);
-    setPreMove(data.data.pre_move);
+    // setPreMove(data.data.pre_move);
   }, [sequence]);
   return (
     // <div>
@@ -36,6 +36,14 @@ function App() {
     <Router>
       <AppBar>
         <Toolbar style={{ backgroundColor: '#373737' }}>
+          <Link
+            to="/"
+            style={{ textDecoration: 'none' }}
+          >
+            <Button style={{ color: 'goldenrod' }}>
+              Home
+            </Button>
+          </Link>
           <Link
             to="/profile"
             style={{ textDecoration: 'none' }}
@@ -59,7 +67,7 @@ function App() {
           <Profile />
         </Route>
         <Route path="/puzzles">
-          <PuzzleFeature key={solution} fen={fen} solution={solution} preMove={preMove} sequence={sequence} updateSequence={updateSequence} />
+          <PuzzleFeature key={solution} fen={fen} solution={solution} sequence={sequence} updateSequence={updateSequence} />
         </Route>
         <Route path="/">
           <Home />
