@@ -29,6 +29,7 @@ module.exports = {
     'no-shadow': 'off',
     'no-lonely-if': 'off',
     'plus-plus': 'off',
+    'max-len': 'off',
   },
   parser: 'babel-eslint',
 };
