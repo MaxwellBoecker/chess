@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
-const { client } = require('../database');
+const { createNewClient } = require('../database');
 const { connectAndRetrievePuzzle, connectAndInsertPuzzle } = require('../database/dbFunctions');
 
 const app = express();
@@ -16,9 +16,12 @@ app.use(jsonParser);
 
 app.get('/puzzle', (req, res) => {
   let { sequence } = req.query;
-  console.log(sequence)
+  console.log(sequence);
   sequence = parseFloat(sequence);
+  // if(sequence > 2) sequence = 1;
+  // if(sequence < 1) sequence = 1;
   const options = { sequence: { $eq: sequence } };
+  const client = createNewClient();
   connectAndRetrievePuzzle(client, options)
     .then((data) => {
       console.log(data, 'data server');
@@ -32,6 +35,7 @@ app.get('/puzzle', (req, res) => {
 
 app.post('/puzzle', jsonParser, (req, res) => {
   const puzzleInfo = req.body;
+  const client = createNewClient();
   connectAndInsertPuzzle(client, puzzleInfo)
     .then(() => {
       res.status(200).end();
