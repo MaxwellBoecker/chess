@@ -19,7 +19,6 @@ class PuzzleLogic extends Component {
   };
 
   componentDidMount() {
-    console.log('component did mount')
     const { fen, solution } = this.props;
     const newFen = fen;
 
@@ -116,7 +115,7 @@ class PuzzleLogic extends Component {
     // console.log('square', square);
     const { pieceSquare, solution } = this.state;
     const {
-      setMoves, moves, setSuccess, setColor, success, setStopClock, fen
+      setMoves, moves, setSuccess, setColor, success, setStopClock, fen, setIncorrectMove,
     } = this.props;
     this.setState(({ history }) => ({
       squareStyles: squareStyling({ pieceSquare: square, history }),
@@ -130,7 +129,6 @@ class PuzzleLogic extends Component {
     });
     // check if move is valid
     if (move === null) {
-
     } else if (solution[0] === move.san) {
       setMoves([...moves, move.san]);
       if (solution.length === 1) {
@@ -158,12 +156,12 @@ class PuzzleLogic extends Component {
         }
       });
     } else {
-      console.log('Incorrect Move', `correct was ${move.san}`);
-      console.log(solution, fen);
       if (success === null) {
         setSuccess(false);
         setColor('red');
         setStopClock(true);
+        setIncorrectMove(move.san);
+        setMoves([...moves, solution]);
       }
     }
   };

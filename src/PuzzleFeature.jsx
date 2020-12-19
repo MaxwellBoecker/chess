@@ -10,7 +10,7 @@ function PuzzleFeature(props) {
   const { sequence, updateSequence } = props;
   const [fen, setFen] = useState(props.fen);
   const [solution, setSolution] = useState(props.solution);
-  
+  const [incorrectMove, setIncorrectMove] = useState(null);
   const [moves, setMoves] = useState([]);
   const [orientation, setOrientation] = useState('white');
   const [success, setSuccess] = useState(null);
@@ -56,6 +56,7 @@ function PuzzleFeature(props) {
             setSuccess={setSuccess}
             setColor={setColor}
             setStopClock={setStopClock}
+            setIncorrectMove={setIncorrectMove}
           >
             {({
               orientation,
@@ -105,7 +106,7 @@ function PuzzleFeature(props) {
           </Container>
         </Grid>
         <Grid item md>
-          <MoveDisplayBox moves={moves} orientation={orientation} success={success} color={color} />
+          <MoveDisplayBox moves={moves} orientation={orientation} success={success} color={color} incorrectMove={incorrectMove} />
         </Grid>
       </Grid>
 

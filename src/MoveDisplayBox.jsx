@@ -8,8 +8,7 @@ import MoveControlPanel from './MoveControlPanel.jsx';
 import SuccessFailBar from './SuccessFailBar.jsx';
 
 const MoveDisplayBox = (props) => {
-  const { moves, orientation, success, color } = props;
-
+  const { moves, orientation, success, color, incorrectMove } = props;
   const determinePrefix = (index, orientation) => {
     let prefix = '';
     const evaluatedMove = index % 2;
@@ -31,7 +30,7 @@ const MoveDisplayBox = (props) => {
   };
   return (
     <div>
-      {success !== null ? <SuccessFailBar color={color} /> : ''}
+      {success !== null ? <SuccessFailBar color={color} incorrectMove={incorrectMove} /> : ''}
       <Container style={{ backgroundColor: '#373737', color: 'white', paddingBottom: '128px', paddingTop: '12px' }}>
         {moves.map((m, i) => {
           const prefix = determinePrefix(i, orientation);
